@@ -53,6 +53,7 @@ function firstPrompt() {
             case "End":
                 connection.end();
                 break;
+        }
     });
 }
 
