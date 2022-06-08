@@ -356,5 +356,35 @@ function addRole() {
 }
 
 function promptAddRole(departmentChoices) {
-    
+    inquirer
+    .prompt ([
+        {
+            type: "input",
+            name: "roleTitle",
+            message: "Role?"
+        },
+        {
+            type: "list",
+            name: "departmentId",
+            message: "Department?",
+            choices: departmentChoices
+        },
+    ])
+    .then(function (answer){
+        var query = `INSERT INTO role SET ?`
+
+        connection.query(query, {
+          title: answer.title,
+          salary: answer.salary,
+          department_id: answer.departmentId
+        },
+          function (err, res) {
+            if (err) throw err;
+  
+            console.table(res);
+            console.log("Role Inserted!");
+  
+            firstPrompt();
+          });  
+    });
 }
